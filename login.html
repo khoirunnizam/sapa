@@ -1,0 +1,1492 @@
+<!doctype html>
+<html lang="id" class="h-full bg-slate-50 text-slate-800">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduSmart - Platform LMS Aksesibel & Formal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              sage: {
+                50: "#f4f7f5",
+                100: "#e3ece6",
+                200: "#c7d9cd",
+                300: "#a3bead",
+                600: "#4e7a5d",
+                700: "#3d6149",
+                800: "#2d4736",
+                900: "#1e3024",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Accessible Focus Outline */
+      *:focus-visible {
+        outline: 3px solid #3d6149 !important;
+        outline-offset: 2px !important;
+      }
+
+      /* Font Scaling Classes */
+      body.font-scale-normal {
+        font-size: 15px;
+      }
+      body.font-scale-large {
+        font-size: 17px;
+      }
+      body.font-scale-xlarge {
+        font-size: 19px;
+      }
+
+      /* Custom Soft Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f4f7f5;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c7d9cd;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a3bead;
+      }
+
+      /* Modal Backdrop Fade */
+      .modal-active {
+        display: flex !important;
+      }
+    </style>
+  </head>
+  <body class="h-full font-sans antialiased flex flex-col bg-slate-50 text-slate-800 font-scale-normal selection:bg-sage-200 selection:text-sage-900">
+    <!-- ACCESSIBILITY TOP TOOLBAR -->
+    <div class="bg-sage-900 text-slate-100 px-6 py-2 flex flex-wrap items-center justify-between gap-3 text-xs font-medium border-b border-sage-800">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-universal-access text-sm text-sage-200" aria-hidden="true"></i>
+        <span>Mode Aksesibilitas Disabilitas & Navigasi Mudah</span>
+      </div>
+      <!-- Font Scaler -->
+      <div class="flex items-center gap-2">
+        <span class="text-sage-200">Ukuran Teks:</span>
+        <div class="inline-flex rounded-md bg-sage-800 p-0.5 border border-sage-700">
+          <button onclick="setFontScale('normal', event)" class="font-btn px-2.5 py-1 rounded text-xs font-medium bg-sage-700 text-white transition min-h-[36px]" aria-label="Ukuran teks standar">A (Normal)</button>
+          <button onclick="setFontScale('large', event)" class="font-btn px-2.5 py-1 rounded text-xs font-medium hover:bg-sage-700 transition text-sage-100 min-h-[36px]" aria-label="Ukuran teks besar">A+ (Besar)</button>
+          <button onclick="setFontScale('xlarge', event)" class="font-btn px-2.5 py-1 rounded text-xs font-medium hover:bg-sage-700 transition text-sage-100 min-h-[36px]" aria-label="Ukuran teks sangat besar">A++ (Sangat Besar)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUTH SECTION (LOGIN & REGISTRASI) -->
+    <div id="authSection" class="min-h-screen flex items-center justify-center p-4 bg-slate-50">
+      <!-- LOGIN CONTAINER -->
+      <div id="loginCard" class="w-full max-w-md bg-white rounded-lg border border-slate-200 p-6 sm:p-8 space-y-6 shadow-sm">
+        <div class="text-center space-y-2">
+          <div class="w-12 h-12 rounded-lg bg-sage-700 text-white flex items-center justify-center text-xl font-semibold mx-auto border border-sage-800">
+            <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+          </div>
+          <h1 class="text-xl font-semibold text-slate-900">Masuk ke EduSmart</h1>
+          <p class="text-xs text-slate-500">Sistem Pembelajaran Aksesibel Terintegrasi</p>
+        </div>
+
+        <form onsubmit="handleLoginSubmit(event)" class="space-y-4 text-xs">
+          <div>
+            <label for="loginEmail" class="block font-medium text-slate-700 mb-1">Alamat Email / Username</label>
+            <input type="text" id="loginEmail" required placeholder="Contoh: sarah@edusmart.id" class="w-full border border-slate-300 rounded p-3 text-xs focus:outline-none focus:border-sage-600 min-h-[48px]" />
+          </div>
+          <div>
+            <label for="loginPassword" class="block font-medium text-slate-700 mb-1">Kata Sandi</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full border border-slate-300 rounded p-3 text-xs focus:outline-none focus:border-sage-600 min-h-[48px]" />
+          </div>
+          <div>
+            <label for="loginDefaultRole" class="block font-medium text-slate-700 mb-1">Pilih Mode Akses Masuk</label>
+            <select id="loginDefaultRole" class="w-full border border-slate-300 rounded p-3 text-xs bg-white focus:outline-none focus:border-sage-600 min-h-[48px]">
+              <option value="admin">Administrator (Akses Penuh)</option>
+              <option value="pemateri">Pemateri / Dosen</option>
+              <option value="user" selected>User / Peserta Siswa</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full bg-sage-700 hover:bg-sage-800 text-white font-medium text-sm py-3 px-4 rounded transition border border-sage-800 min-h-[48px] flex items-center justify-center gap-2">
+            <span>Masuk ke Dashboard</span>
+            <i class="fa-solid fa-arrow-right-to-bracket text-xs" aria-hidden="true"></i>
+          </button>
+        </form>
+
+        <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-600 space-y-2">
+          <p>Belum memiliki akun?</p>
+          <button onclick="showAuthView('register')" class="text-sage-700 font-semibold hover:underline min-h-[44px] px-2 py-1">Daftar Akun Baru atau Daftar Pemateri</button>
+        </div>
+      </div>
+
+      <!-- REGISTRATION CONTAINER -->
+      <div id="registerCard" class="hidden w-full max-w-md bg-white rounded-lg border border-slate-200 p-6 sm:p-8 space-y-6 shadow-sm">
+        <div class="text-center space-y-2">
+          <div class="w-12 h-12 rounded-lg bg-sage-700 text-white flex items-center justify-center text-xl font-semibold mx-auto border border-sage-800">
+            <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
+          </div>
+          <h1 class="text-xl font-semibold text-slate-900">Pendaftaran EduSmart</h1>
+          <p class="text-xs text-slate-500">Buat Akun Peserta atau Pengajuan Calon Pemateri</p>
+        </div>
+
+        <form onsubmit="handleRegisterSubmit(event)" class="space-y-4 text-xs">
+          <div>
+            <label for="regName" class="block font-medium text-slate-700 mb-1">Nama Lengkap & Gelar</label>
+            <input type="text" id="regName" required placeholder="Contoh: Budi Santoso, S.Kom." class="w-full border border-slate-300 rounded p-3 text-xs focus:outline-none focus:border-sage-600 min-h-[48px]" />
+          </div>
+          <div>
+            <label for="regEmail" class="block font-medium text-slate-700 mb-1">Alamat Email Aktivasi</label>
+            <input type="email" id="regEmail" required placeholder="budi@domain.com" class="w-full border border-slate-300 rounded p-3 text-xs focus:outline-none focus:border-sage-600 min-h-[48px]" />
+          </div>
+          <div>
+            <label for="regType" class="block font-medium text-slate-700 mb-1">Daftar Sebagai</label>
+            <select id="regType" onchange="togglePemateriExtraField(this.value)" class="w-full border border-slate-300 rounded p-3 text-xs bg-white focus:outline-none focus:border-sage-600 min-h-[48px]">
+              <option value="user" selected>User / Siswa Peserta</option>
+              <option value="pemateri">Calon Pemateri / Dosen (Perlu Request Approval Admin)</option>
+            </select>
+          </div>
+
+          <div id="pemateriExtraField" class="hidden space-y-1">
+            <label for="regExpertise" class="block font-medium text-slate-700 mb-1">Bidang Keahlian / Bidang Ajar</label>
+            <input type="text" id="regExpertise" placeholder="Contoh: Aksesibilitas Web / Python Data Science" class="w-full border border-slate-300 rounded p-3 text-xs focus:outline-none focus:border-sage-600 min-h-[48px]" />
+          </div>
+
+          <div>
+            <label for="regPassword" class="block font-medium text-slate-700 mb-1">Kata Sandi</label>
+            <input type="password" id="regPassword" required placeholder="Buat password baru..." class="w-full border border-slate-300 rounded p-3 text-xs focus:outline-none focus:border-sage-600 min-h-[48px]" />
+          </div>
+
+          <button type="submit" class="w-full bg-sage-700 hover:bg-sage-800 text-white font-medium text-sm py-3 px-4 rounded transition border border-sage-800 min-h-[48px] flex items-center justify-center gap-2">
+            <span>Selesaikan Pendaftaran</span>
+            <i class="fa-solid fa-check text-xs" aria-hidden="true"></i>
+          </button>
+        </form>
+
+        <div class="pt-4 border-t border-slate-200 text-center text-xs text-slate-600 space-y-2">
+          <p>Sudah memiliki akun?</p>
+          <button onclick="showAuthView('login')" class="text-sage-700 font-semibold hover:underline min-h-[44px] px-2 py-1">Kembali ke Halaman Masuk</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN APP DASHBOARD WRAPPER (HIDDEN UNTIL LOGIN) -->
+    <div id="appSection" class="hidden h-full flex flex-col">
+      <!-- MAIN HEADER -->
+      <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="px-6 h-16 flex items-center justify-between gap-4">
+          <!-- Left Header -->
+          <div class="flex items-center gap-4">
+            <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 border border-slate-200 min-h-[48px] min-w-[48px] flex items-center justify-center" aria-label="Buka Menu Navigasi">
+              <i class="fa-solid fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-sage-700 text-white flex items-center justify-center text-lg font-semibold">
+                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+              </div>
+              <div>
+                <span class="font-semibold text-base text-slate-900 tracking-tight block leading-none">EduSmart</span>
+                <span class="text-xs text-slate-500 block mt-0.5">Sistem Pembelajaran LMS Aksesibel</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role Switcher, Profile & Logout -->
+          <div class="flex items-center gap-3">
+            <div class="bg-slate-100 border border-slate-200 rounded-lg p-1 flex items-center gap-2">
+              <label for="roleSelector" class="text-xs font-medium text-slate-600 px-2 hidden sm:inline-block"> <i class="fa-solid fa-user-gear mr-1 text-slate-500" aria-hidden="true"></i> Simulasi Role: </label>
+              <select id="roleSelector" onchange="switchRole(this.value)" class="bg-white text-slate-800 font-medium text-xs py-1.5 px-3 rounded border border-slate-300 focus:outline-none focus:border-sage-600 cursor-pointer min-h-[44px]">
+                <option value="admin">Admin (Akses Penuh)</option>
+                <option value="pemateri">Pemateri (Dosen)</option>
+                <option value="user" selected>User (Siswa)</option>
+              </select>
+            </div>
+
+            <div class="hidden sm:flex items-center gap-3 pl-3 border-l border-slate-200">
+              <div class="w-9 h-9 rounded-full bg-sage-100 text-sage-800 font-medium flex items-center justify-center text-xs border border-sage-300" id="userAvatarText">SA</div>
+              <div>
+                <div id="userName" class="text-xs font-semibold text-slate-900 leading-tight">Sarah Amelia</div>
+                <div id="userRoleBadge" class="text-[11px] text-slate-500">Super Admin</div>
+              </div>
+            </div>
+
+            <button onclick="handleLogout()" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium text-xs px-3 py-2 rounded-md transition flex items-center gap-1.5 min-h-[44px]" title="Keluar dari Aplikasi">
+              <i class="fa-solid fa-right-from-bracket text-slate-500" aria-hidden="true"></i>
+              <span class="hidden md:inline">Keluar</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN APP LAYOUT -->
+      <div class="flex-1 flex overflow-hidden">
+        <!-- SIDEBAR NAVIGATION -->
+        <aside
+          id="sidebar"
+          class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between transition-all duration-200 z-20 fixed lg:static inset-y-0 left-0 -translate-x-full lg:translate-x-0 shadow-sm"
+          aria-label="Navigasi Utama"
+        >
+          <div class="p-4 space-y-6 overflow-y-auto">
+            <!-- Sidebar Role Indicator -->
+            <div id="sidebarRoleBanner" class="bg-sage-50 text-slate-700 p-3 rounded-lg border border-sage-200">
+              <div class="text-[11px] uppercase tracking-wider text-slate-500">Status Hak Akses</div>
+              <div id="sidebarRoleName" class="font-medium text-sm flex items-center gap-2 mt-0.5 text-sage-800"><i class="fa-solid fa-shield text-sage-600" aria-hidden="true"></i> Administrator</div>
+            </div>
+
+            <!-- KATEGORI ADMIN -->
+            <div id="groupAdmin" class="space-y-1">
+              <div class="px-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider pb-1">Area Admin</div>
+
+              <button
+                onclick="navigateTo('admin-requests')"
+                id="nav-admin-requests"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-solid fa-user-check w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Kelola Request Pemateri</span>
+                <span class="bg-amber-100 text-amber-800 text-[11px] px-2 py-0.5 rounded font-medium border border-amber-200">3</span>
+              </button>
+
+              <button
+                onclick="navigateTo('admin-users')"
+                id="nav-admin-users"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-solid fa-users-gear w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Kelola Akun & Role</span>
+              </button>
+            </div>
+
+            <!-- KATEGORI PEMATERI -->
+            <div id="groupPemateri" class="space-y-1">
+              <div class="px-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider pb-1">Area Pemateri</div>
+
+              <button
+                onclick="navigateTo('pemateri-catalog')"
+                id="nav-pemateri-catalog"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-solid fa-book-open w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Katalog & Bahan Ajar</span>
+              </button>
+
+              <button
+                onclick="navigateTo('pemateri-feedback')"
+                id="nav-pemateri-feedback"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-regular fa-comment-dots w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Masukan & Ulasan User</span>
+              </button>
+            </div>
+
+            <!-- KATEGORI USER / UMUM -->
+            <div id="groupUser" class="space-y-1">
+              <div class="px-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider pb-1">Area Umum & Pembelajaran</div>
+
+              <button
+                onclick="navigateTo('user-dashboard')"
+                id="nav-user-dashboard"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-solid fa-house w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Dashboard Utama</span>
+              </button>
+
+              <button
+                onclick="navigateTo('user-video')"
+                id="nav-user-video"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-regular fa-circle-play w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Lihat Materi & Video</span>
+              </button>
+
+              <button
+                onclick="navigateTo('user-forum')"
+                id="nav-user-forum"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-regular fa-comments w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Forum Diskusi</span>
+              </button>
+
+              <button
+                onclick="navigateTo('user-consultation')"
+                id="nav-user-consultation"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-regular fa-comments-dots w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Chat Konsultasi Dosen</span>
+              </button>
+
+              <button
+                onclick="navigateTo('user-request-topic')"
+                id="nav-user-request-topic"
+                class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-md text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition min-h-[48px] text-left border border-transparent"
+              >
+                <i class="fa-regular fa-lightbulb w-4 text-slate-500" aria-hidden="true"></i>
+                <span class="flex-1">Request Topik Materi</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="p-3 border-t border-slate-200 bg-slate-50 text-center">
+            <p class="text-xs text-slate-500">EduSmart System v2.2</p>
+          </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-slate-50" id="mainContent">
+          <!-- PAGE 0: DASHBOARD UTAMA -->
+          <div id="page-user-dashboard" class="page-view space-y-6">
+            <div class="bg-white border border-slate-200 rounded-lg p-6">
+              <h1 class="text-xl font-semibold text-slate-900">Selamat Datang di EduSmart, <span id="welcomeUserName">Sarah</span></h1>
+              <p class="text-sm text-slate-600 mt-1 leading-relaxed">Platform pembelajaran digital yang dirancang bersih, formal, dan ramah aksesibilitas.</p>
+
+              <div class="mt-5 flex flex-wrap gap-3">
+                <button onclick="navigateTo('user-video')" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-3 rounded-md transition flex items-center gap-2 border border-sage-800 min-h-[48px]">
+                  <i class="fa-solid fa-play text-xs" aria-hidden="true"></i> Lihat Pembelajaran Video
+                </button>
+                <button onclick="navigateTo('user-consultation')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-medium text-xs px-4 py-3 rounded-md transition flex items-center gap-2 min-h-[48px]">
+                  <i class="fa-regular fa-comments text-slate-500" aria-hidden="true"></i> Konsultasi Dosen Privat
+                </button>
+              </div>
+            </div>
+
+            <!-- STAT CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-white p-5 rounded-lg border border-slate-200 flex items-center gap-4">
+                <div class="w-12 h-12 rounded bg-sage-50 text-sage-700 flex items-center justify-center text-lg border border-sage-200">
+                  <i class="fa-solid fa-book text-sage-600" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium">Modul Aktif</div>
+                  <div class="text-lg font-semibold text-slate-900 mt-0.5">24 Materi</div>
+                </div>
+              </div>
+
+              <div class="bg-white p-5 rounded-lg border border-slate-200 flex items-center gap-4">
+                <div class="w-12 h-12 rounded bg-sage-50 text-sage-700 flex items-center justify-center text-lg border border-sage-200">
+                  <i class="fa-regular fa-comments text-sage-600" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium">Diskusi Komunitas</div>
+                  <div class="text-lg font-semibold text-slate-900 mt-0.5">18 Topik</div>
+                </div>
+              </div>
+
+              <div class="bg-white p-5 rounded-lg border border-slate-200 flex items-center gap-4">
+                <div class="w-12 h-12 rounded bg-sage-50 text-sage-700 flex items-center justify-center text-lg border border-sage-200">
+                  <i class="fa-regular fa-user-circle text-sage-600" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <div class="text-xs text-slate-500 font-medium">Jadwal Konsultasi</div>
+                  <div class="text-lg font-semibold text-slate-900 mt-0.5">3 Dosen Siap Chat</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 1: ADMIN - KELOLA REQUEST PEMATERI -->
+          <div id="page-admin-requests" class="page-view space-y-6 hidden">
+            <div class="bg-white p-5 rounded-lg border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Pendaftaran Pemateri Baru</h1>
+                <p class="text-xs text-slate-500 mt-0.5">Persetujuan atau penolakan pengajuan akun calon pemateri.</p>
+              </div>
+              <span class="bg-sage-50 text-sage-800 border border-sage-200 text-xs px-2.5 py-1 rounded font-medium"> Area Khusus Admin </span>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-medium">
+                      <th class="p-3.5">Nama & Email</th>
+                      <th class="p-3.5">Bidang Keahlian</th>
+                      <th class="p-3.5">Status Pengajuan</th>
+                      <th class="p-3.5 text-center">Tindakan</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 text-slate-700">
+                    <tr id="req-row-1">
+                      <td class="p-3.5">
+                        <div class="font-medium text-slate-900">Ahmad Rivai, M.T.</div>
+                        <div class="text-slate-500">ahmad.rivai@univ.ac.id</div>
+                      </td>
+                      <td class="p-3.5">Aksesibilitas Web & UX Design</td>
+                      <td class="p-3.5">
+                        <span class="badge-status bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px] font-medium"> Menunggu Peninjauan </span>
+                      </td>
+                      <td class="p-3.5 text-center space-x-2">
+                        <button onclick="approveRequest('req-row-1', 'Ahmad Rivai')" class="bg-sage-700 hover:bg-sage-800 text-white px-3 py-2 rounded font-medium transition text-xs min-h-[44px]">Setujui</button>
+                        <button onclick="rejectRequest('req-row-1')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-2 rounded font-medium transition text-xs min-h-[44px]">Tolak</button>
+                      </td>
+                    </tr>
+                    <tr id="req-row-2">
+                      <td class="p-3.5">
+                        <div class="font-medium text-slate-900">Dr. Hendra Kusuma</div>
+                        <div class="text-slate-500">hendra.k@univ.ac.id</div>
+                      </td>
+                      <td class="p-3.5">Pemrograman Python & Data</td>
+                      <td class="p-3.5">
+                        <span class="badge-status bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded text-[11px] font-medium"> Menunggu Peninjauan </span>
+                      </td>
+                      <td class="p-3.5 text-center space-x-2">
+                        <button onclick="approveRequest('req-row-2', 'Dr. Hendra Kusuma')" class="bg-sage-700 hover:bg-sage-800 text-white px-3 py-2 rounded font-medium transition text-xs min-h-[44px]">Setujui</button>
+                        <button onclick="rejectRequest('req-row-2')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-2 rounded text-xs transition min-h-[44px]">Tolak</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 2: ADMIN - KELOLA AKUN & ROLE -->
+          <div id="page-admin-users" class="page-view space-y-6 hidden">
+            <div class="bg-white p-5 rounded-lg border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Kelola Akun & Hak Akses</h1>
+                <p class="text-xs text-slate-500 mt-0.5">Tambah akun baru, ubah role pengguna, atau reset kata sandi.</p>
+              </div>
+              <button onclick="openModal('modalCreateAccount')" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-2.5 rounded-md transition flex items-center gap-2 border border-sage-800 min-h-[48px]">
+                <i class="fa-solid fa-user-plus text-xs" aria-hidden="true"></i> Tambah Akun Baru
+              </button>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-medium">
+                      <th class="p-3.5">Pengguna</th>
+                      <th class="p-3.5">Role Saat Ini</th>
+                      <th class="p-3.5 text-right">Tindakan</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-200 text-slate-700">
+                    <tr id="user-row-1">
+                      <td class="p-3.5">
+                        <div class="font-medium text-slate-900">Budi Santoso</div>
+                        <div class="text-slate-500">budi.santoso@email.com</div>
+                      </td>
+                      <td class="p-3.5"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200">USER</span></td>
+                      <td class="p-3.5 text-right space-x-1.5">
+                        <button onclick="promoteUser('user-row-1')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-2 rounded transition min-h-[44px]">Promosi ke Pemateri</button>
+                        <button onclick="openModal('modalResetPassword')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-2 rounded transition min-h-[44px]">Reset Password</button>
+                        <button onclick="deleteAccount('user-row-1')" class="bg-white hover:bg-rose-50 text-rose-700 border border-slate-300 hover:border-rose-200 px-3 py-2 rounded transition min-h-[44px]">Hapus</button>
+                      </td>
+                    </tr>
+                    <tr id="user-row-2">
+                      <td class="p-3.5">
+                        <div class="font-medium text-slate-900">Dr. Indah Permata</div>
+                        <div class="text-slate-500">indah.p@univ.ac.id</div>
+                      </td>
+                      <td class="p-3.5"><span class="bg-sage-50 text-sage-800 px-2 py-0.5 rounded text-[11px] font-medium border border-sage-200">PEMATERI</span></td>
+                      <td class="p-3.5 text-right space-x-1.5">
+                        <button onclick="openModal('modalResetPassword')" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 px-3 py-2 rounded transition min-h-[44px]">Reset Password</button>
+                        <button onclick="deleteAccount('user-row-2')" class="bg-white hover:bg-rose-50 text-rose-700 border border-slate-300 hover:border-rose-200 px-3 py-2 rounded transition min-h-[44px]">Hapus</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 3: PEMATERI - KATALOG & BAHAN AJAR TERINTEGRASI -->
+          <div id="page-pemateri-catalog" class="page-view space-y-6 hidden">
+            <div class="bg-white p-5 rounded-lg border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Kelola Katalog & Bahan Ajar</h1>
+                <p class="text-xs text-slate-500 mt-0.5">Kelola modul pembelajaran, materi pendukung, dan lampiran video.</p>
+              </div>
+              <button onclick="openModal('modalAddCatalog')" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-2.5 rounded-md transition flex items-center gap-2 border border-sage-800 min-h-[48px]">
+                <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i> Tambah Kursus Baru
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Card Kursus 1 -->
+              <div class="bg-white rounded-lg border border-slate-200 p-5 space-y-3">
+                <div class="flex justify-between items-start">
+                  <span class="bg-slate-100 text-slate-700 border border-slate-200 font-medium px-2 py-0.5 rounded text-[11px]">PEMROGRAMAN WEB</span>
+                  <span class="text-xs text-slate-500">12 Video Modul</span>
+                </div>
+                <h3 class="font-semibold text-base text-slate-900">Aksesibilitas Web dengan HTML & Tailwind</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Panduan lengkap pembuatan aplikasi web terstruktur dan ramah bagi penyandang disabilitas.</p>
+
+                <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                  <span class="text-sage-700 font-medium">Status: Diterbitkan</span>
+                  <div class="space-x-1.5">
+                    <button onclick="navigateTo('user-video')" class="bg-sage-50 text-sage-800 hover:bg-sage-100 border border-sage-200 px-3 py-2 rounded font-medium transition min-h-[44px]">Pratinjau Materi</button>
+                    <button onclick="alert('Fitur Edit Modul')" class="bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 px-3 py-2 rounded transition min-h-[44px]">Edit</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Kursus 2 -->
+              <div class="bg-white rounded-lg border border-slate-200 p-5 space-y-3">
+                <div class="flex justify-between items-start">
+                  <span class="bg-slate-100 text-slate-700 border border-slate-200 font-medium px-2 py-0.5 rounded text-[11px]">DESAIN INTERFACE</span>
+                  <span class="text-xs text-slate-500">8 Video Modul</span>
+                </div>
+                <h3 class="font-semibold text-base text-slate-900">Prinsip Warna & Kontras WCAG 2.1</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Penerapan palet warna yang aman dibaca serta mendukung visibilitas tinggi bagi pembaca layar.</p>
+
+                <div class="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
+                  <span class="text-sage-700 font-medium">Status: Diterbitkan</span>
+                  <div class="space-x-1.5">
+                    <button onclick="navigateTo('user-video')" class="bg-sage-50 text-sage-800 hover:bg-sage-100 border border-sage-200 px-3 py-2 rounded font-medium transition min-h-[44px]">Pratinjau Materi</button>
+                    <button onclick="alert('Fitur Edit Modul')" class="bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 px-3 py-2 rounded transition min-h-[44px]">Edit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 4: PEMATERI - MASUKAN USER -->
+          <div id="page-pemateri-feedback" class="page-view space-y-6 hidden">
+            <div class="bg-white rounded-lg border border-slate-200 p-5 space-y-4">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Masukan & Ulasan Pengguna</h1>
+                <p class="text-xs text-slate-500 mt-0.5">Ulasan dari peserta terkait kejelasan modul dan kenyamanan membaca.</p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-1 text-xs">
+                  <div class="flex justify-between items-center">
+                    <span class="font-medium text-slate-900">Fajar Nugraha (Peserta)</span>
+                    <span class="text-slate-400">Kemarin, 14:20</span>
+                  </div>
+                  <p class="text-slate-700 leading-relaxed">"Teks dan kontras modul sangat jelas dan tidak melelahkan mata. Navigasi keyboard juga berjalan lancar."</p>
+                </div>
+
+                <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-1 text-xs">
+                  <div class="flex justify-between items-center">
+                    <span class="font-medium text-slate-900">Siti Rahmawati (Peserta)</span>
+                    <span class="text-slate-400">3 Hari lalu</span>
+                  </div>
+                  <p class="text-slate-700 leading-relaxed">"Penjelasan pada video Modul 1 sangat runtut. Mohon tambahkan contoh studi kasus tambahan."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 5: USER - MATERI & VIDEO (INTEGRATED Q&A) -->
+          <div id="page-user-video" class="page-view space-y-6 hidden">
+            <div class="bg-white rounded-lg border border-slate-200 p-5">
+              <div class="flex items-center gap-2">
+                <span class="bg-sage-100 text-sage-800 text-[11px] font-medium px-2 py-0.5 rounded border border-sage-200">Modul Pembelajaran</span>
+                <span class="text-xs text-slate-500">Durasi: 15 Menit</span>
+              </div>
+              <h1 class="text-xl font-semibold text-slate-900 mt-2">Modul 1: Navigasi Keyboard & Kontras Warna Aksesibel</h1>
+            </div>
+
+            <div class="space-y-6">
+              <!-- Player Simulasi Sederhana -->
+              <div class="bg-slate-900 rounded-lg border border-slate-800 p-8 text-white flex flex-col justify-center items-center text-center min-h-[260px]">
+                <button
+                  onclick="alert('Simulasi Pemutaran Video Pembelajaran Aksesibel')"
+                  class="w-14 h-14 rounded-full bg-sage-700 hover:bg-sage-600 text-white flex items-center justify-center transition mb-3 border border-sage-500 min-h-[48px] min-w-[48px]"
+                  aria-label="Putar Video Materi"
+                >
+                  <i class="fa-solid fa-play text-xl" aria-hidden="true"></i>
+                </button>
+                <span class="font-medium text-sm">Klik untuk Mengakses Pemutar Video</span>
+                <span class="text-xs text-slate-400 mt-1">Teks Subtitle Bahasa Indonesia Aktif</span>
+              </div>
+
+              <!-- Kolom Tanya Jawab Q&A Terstruktur -->
+              <div class="bg-white rounded-lg border border-slate-200 p-5 space-y-4">
+                <h3 class="font-semibold text-sm text-slate-900 border-b border-slate-200 pb-3 flex items-center gap-2"><i class="fa-regular fa-comments text-sage-700" aria-hidden="true"></i> Pertanyaan & Diskusi Materi Video</h3>
+
+                <!-- Form Tambah Pertanyaan -->
+                <form onsubmit="postVideoComment(event)" class="space-y-3">
+                  <div>
+                    <label for="videoCommentInput" class="block text-xs font-medium text-slate-700 mb-1">Tulis Pertanyaan Baru:</label>
+                    <textarea
+                      id="videoCommentInput"
+                      rows="2"
+                      required
+                      placeholder="Tanyakan bagian materi yang memerlukan penjelasan..."
+                      class="w-full border border-slate-300 rounded-md p-2.5 text-xs focus:outline-none focus:border-sage-600"
+                    ></textarea>
+                  </div>
+                  <button type="submit" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-2.5 rounded transition border border-sage-800 min-h-[48px]">Kirim Pertanyaan</button>
+                </form>
+
+                <!-- Daftar Pertanyaan Terpaut -->
+                <div id="videoCommentsList" class="space-y-3 pt-2">
+                  <div class="p-3.5 bg-slate-50 rounded-md border border-slate-200 space-y-2 text-xs">
+                    <div class="flex justify-between items-center">
+                      <span class="font-medium text-slate-900">Rian Pratama (Peserta)</span>
+                      <span class="text-slate-400">10 Menit lalu</span>
+                    </div>
+                    <p class="text-slate-700">Apakah batas ukuran minimum target sentuh tombol harus selalu 44x44 atau 48x48 piksel?</p>
+
+                    <!-- Jawaban Pemateri -->
+                    <div class="p-3 bg-white rounded border border-slate-200 mt-2 space-y-1">
+                      <div class="font-medium text-sage-800 text-[11px] flex items-center gap-1"><i class="fa-solid fa-reply text-sage-600" aria-hidden="true"></i> Dr. Indah Permata (Pemateri):</div>
+                      <p class="text-slate-700">Ya, benar. Ukuran minimal 48x48px disarankan untuk kenyamanan ekstra agar tombol mudah ditekan baik pada layar sentuh maupun oleh pengguna dengan disabilitas motorik.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 6: USER - FORUM DISKUSI -->
+          <div id="page-user-forum" class="page-view space-y-6 hidden">
+            <div class="bg-white p-5 rounded-lg border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Forum Diskusi Komunitas</h1>
+                <p class="text-xs text-slate-500 mt-0.5">Ruang pertukaran gagasan dan diskusi antar sesama pengguna.</p>
+              </div>
+              <button onclick="openModal('modalCreateTopic')" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-2.5 rounded-md transition flex items-center gap-2 border border-sage-800 min-h-[48px]">
+                <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i> Buat Topik Baru
+              </button>
+            </div>
+
+            <div id="forumTopicsList" class="space-y-3">
+              <div class="bg-white rounded-lg border border-slate-200 p-4 space-y-2 text-xs">
+                <div class="flex justify-between items-center">
+                  <span class="bg-slate-100 text-slate-700 border border-slate-200 font-medium px-2 py-0.5 rounded text-[11px]">DISKUSI UMUM</span>
+                  <span class="text-slate-400">Oleh Dimas Anggara</span>
+                </div>
+                <h3 class="font-semibold text-sm text-slate-900">Rekomendasi Software Screen Reader Terbaik untuk Belajar Coding</h3>
+                <p class="text-slate-600 leading-relaxed">Pengalaman penggunaan NVDA vs TalkBack saat mengakses dokumentasi teknis.</p>
+                <div class="pt-2 border-t border-slate-100 flex justify-between items-center">
+                  <span class="text-slate-500">4 Tanggapan</span>
+                  <button onclick="alert('Membuka tanggapan forum')" class="bg-white hover:bg-slate-50 text-slate-700 px-3 py-2 rounded border border-slate-300 font-medium transition min-h-[44px]">Beri Tanggapan</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 7: USER - CHAT KONSULTASI PRIVAT DOSEN & MURID -->
+          <div id="page-user-consultation" class="page-view space-y-4 hidden h-[calc(100vh-140px)] min-h-[500px]">
+            <div class="bg-white p-4 rounded-lg border border-slate-200 flex flex-wrap justify-between items-center gap-3">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Konsultasi Privat Dosen & Murid</h1>
+                <p class="text-xs text-slate-500">Obrolan langsung dan bimbingan akademik secara privat.</p>
+              </div>
+              <button onclick="openModal('modalConsultation')" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-3.5 py-2 rounded-md transition flex items-center gap-2 border border-sage-800 min-h-[44px]">
+                <i class="fa-solid fa-plus text-xs" aria-hidden="true"></i> Ajukan Konsultasi Baru
+              </button>
+            </div>
+
+            <!-- MAIN CHAT INTERFACE CONTAINER -->
+            <div class="bg-white rounded-lg border border-slate-200 flex-1 flex flex-col md:flex-row overflow-hidden shadow-sm h-[calc(100%-70px)]">
+              <!-- LEFT PANEL: DAFTAR DOSEN/PEMBIMBING -->
+              <div class="w-full md:w-80 border-r border-slate-200 flex flex-col bg-white">
+                <!-- Search Box -->
+                <div class="p-3 border-b border-slate-200">
+                  <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs" aria-hidden="true"></i>
+                    <input
+                      type="text"
+                      id="searchLecturerInput"
+                      onkeyup="filterLecturers()"
+                      placeholder="Cari nama dosen atau keahlian..."
+                      class="w-full pl-8 pr-3 py-2 text-xs border border-slate-300 rounded-md focus:outline-none focus:border-sage-600 bg-slate-50"
+                    />
+                  </div>
+                </div>
+
+                <!-- Lecturer List -->
+                <div id="lecturerList" class="flex-1 overflow-y-auto divide-y divide-slate-100">
+                  <!-- Dosen Item 1 -->
+                  <button onclick="selectLecturer('dosen1')" id="lecturer-item-dosen1" class="lecturer-btn w-full p-3 text-left hover:bg-slate-50 transition flex items-start gap-3 bg-sage-50 border-l-4 border-sage-700">
+                    <div class="relative">
+                      <div class="w-10 h-10 rounded-full bg-sage-200 text-sage-800 font-medium text-xs flex items-center justify-center border border-sage-300">IP</div>
+                      <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full absolute bottom-0 right-0 border-2 border-white" title="Online"></span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex justify-between items-baseline">
+                        <h4 class="text-xs font-semibold text-slate-900 truncate">Dr. Indah Permata</h4>
+                        <span class="text-[10px] text-slate-400">10:14</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate mt-0.5">Aksesibilitas & UI/UX</p>
+                      <p class="text-[11px] text-sage-800 truncate font-medium mt-1">Siap, mari kita bahas revisi...</p>
+                    </div>
+                  </button>
+
+                  <!-- Dosen Item 2 -->
+                  <button onclick="selectLecturer('dosen2')" id="lecturer-item-dosen2" class="lecturer-btn w-full p-3 text-left hover:bg-slate-50 transition flex items-start gap-3">
+                    <div class="relative">
+                      <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-700 font-medium text-xs flex items-center justify-center border border-slate-300">AR</div>
+                      <span class="w-2.5 h-2.5 bg-slate-300 rounded-full absolute bottom-0 right-0 border-2 border-white" title="Offline"></span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex justify-between items-baseline">
+                        <h4 class="text-xs font-semibold text-slate-900 truncate">Ahmad Rivai, M.T.</h4>
+                        <span class="text-[10px] text-slate-400">Kemarin</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate mt-0.5">Pemrograman Web</p>
+                      <p class="text-[11px] text-slate-400 truncate mt-1">Silakan kirimkan draft tugas.</p>
+                    </div>
+                  </button>
+
+                  <!-- Dosen Item 3 -->
+                  <button onclick="selectLecturer('dosen3')" id="lecturer-item-dosen3" class="lecturer-btn w-full p-3 text-left hover:bg-slate-50 transition flex items-start gap-3">
+                    <div class="relative">
+                      <div class="w-10 h-10 rounded-full bg-slate-200 text-slate-700 font-medium text-xs flex items-center justify-center border border-slate-300">HK</div>
+                      <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full absolute bottom-0 right-0 border-2 border-white" title="Online"></span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex justify-between items-baseline">
+                        <h4 class="text-xs font-semibold text-slate-900 truncate">Dr. Hendra Kusuma</h4>
+                        <span class="text-[10px] text-slate-400">2 Hari lalu</span>
+                      </div>
+                      <p class="text-[11px] text-slate-500 truncate mt-0.5">Sains Data & Python</p>
+                      <p class="text-[11px] text-slate-400 truncate mt-1">Pengajuan topik disetujui.</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- RIGHT PANEL: AREA OBROLAN CHAT -->
+              <div class="flex-1 flex flex-col bg-slate-50">
+                <!-- Chat Header -->
+                <div class="p-3.5 bg-white border-b border-slate-200 flex justify-between items-center shadow-2xs">
+                  <div class="flex items-center gap-3">
+                    <div class="relative">
+                      <div class="w-9 h-9 rounded-full bg-sage-200 text-sage-800 font-semibold text-xs flex items-center justify-center border border-sage-300" id="activeChatAvatar">IP</div>
+                      <span id="activeChatStatusDot" class="w-2.5 h-2.5 bg-emerald-500 rounded-full absolute bottom-0 right-0 border-2 border-white"></span>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-xs text-slate-900 leading-tight" id="activeChatName">Dr. Indah Permata</h3>
+                      <div class="text-[11px] text-slate-500 flex items-center gap-2 mt-0.5">
+                        <span class="bg-sage-100 text-sage-800 px-1.5 py-0.2 rounded font-medium text-[10px]" id="activeChatBadge">Aksesibilitas & UI/UX</span>
+                        <span id="activeChatStatusText" class="text-emerald-700 font-medium">• Online</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button onclick="alert('Fitur detail profil dosen')" class="text-slate-500 hover:text-slate-700 text-xs px-2.5 py-1.5 rounded border border-slate-200 bg-slate-50 min-h-[36px]" aria-label="Info Dosen">
+                    <i class="fa-solid fa-circle-info mr-1" aria-hidden="true"></i> Info
+                  </button>
+                </div>
+
+                <!-- Chat Messages Container -->
+                <div id="chatMessagesBox" class="flex-1 p-4 overflow-y-auto space-y-3">
+                  <!-- Tanggal Pemisah -->
+                  <div class="text-center my-2">
+                    <span class="bg-slate-200/60 text-slate-600 text-[10px] font-medium px-2.5 py-0.5 rounded-full">Hari ini</span>
+                  </div>
+
+                  <!-- Pesan Masuk Dosen -->
+                  <div class="flex items-start gap-2.5 max-w-[85%]">
+                    <div class="w-7 h-7 rounded-full bg-sage-200 text-sage-800 font-medium text-[10px] flex items-center justify-center border border-sage-300 shrink-0">IP</div>
+                    <div class="space-y-1">
+                      <div class="bg-white text-slate-800 text-xs p-3 rounded-lg border border-slate-200 shadow-2xs leading-relaxed">Selamat pagi Sarah, apakah ada kendala pada penulisan laporan modul aksesibilitas minggu ini?</div>
+                      <div class="text-[10px] text-slate-400 pl-1">10:12 AM</div>
+                    </div>
+                  </div>
+
+                  <!-- Pesan Keluar Murid -->
+                  <div class="flex items-start justify-end gap-2.5 max-w-[85%] ml-auto">
+                    <div class="space-y-1 text-right">
+                      <div class="bg-sage-700 text-white text-xs p-3 rounded-lg border border-sage-800 shadow-2xs text-left leading-relaxed">
+                        Selamat pagi Bu Indah. Saya ingin mengonsultasikan terkait pengujian warna kontras WCAG 2.1 pada tampilan dark mode.
+                      </div>
+                      <div class="text-[10px] text-slate-400 pr-1 flex items-center justify-end gap-1">
+                        <span>10:13 AM</span>
+                        <i class="fa-solid fa-check-double text-sage-600 text-[10px]" title="Terkirim & Dibaca" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pesan Masuk Dosen -->
+                  <div class="flex items-start gap-2.5 max-w-[85%]">
+                    <div class="w-7 h-7 rounded-full bg-sage-200 text-sage-800 font-medium text-[10px] flex items-center justify-center border border-sage-300 shrink-0">IP</div>
+                    <div class="space-y-1">
+                      <div class="bg-white text-slate-800 text-xs p-3 rounded-lg border border-slate-200 shadow-2xs leading-relaxed">
+                        Siap, mari kita bahas revisi tersebut. Kamu bisa melampirkan draf file atau screenshot hasilnya di sini.
+                      </div>
+                      <div class="text-[10px] text-slate-400 pl-1">10:14 AM</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Chat Input Box -->
+                <div class="p-3 bg-white border-t border-slate-200">
+                  <!-- Simulated Attachment Preview Container -->
+                  <div id="attachmentPreview" class="hidden mb-2 p-2 bg-slate-100 rounded border border-slate-200 flex justify-between items-center text-xs">
+                    <div class="flex items-center gap-2 text-slate-700 truncate">
+                      <i class="fa-solid fa-paperclip text-sage-700" aria-hidden="true"></i>
+                      <span id="attachmentFileName" class="truncate font-medium">file_revisi.pdf</span>
+                    </div>
+                    <button onclick="removeAttachment()" class="text-slate-400 hover:text-slate-600 p-1 min-h-[36px]" aria-label="Hapus lampiran">
+                      <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+                    </button>
+                  </div>
+
+                  <form onsubmit="sendPrivateChatMessage(event)" class="flex items-center gap-2">
+                    <!-- File Input Attachment Button -->
+                    <label
+                      for="chatFileInput"
+                      class="bg-slate-100 hover:bg-slate-200 text-slate-600 p-2.5 rounded-md cursor-pointer transition border border-slate-300 min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      aria-label="Lampirkan File"
+                    >
+                      <i class="fa-solid fa-paperclip text-sm" aria-hidden="true"></i>
+                      <input type="file" id="chatFileInput" class="hidden" onchange="handleFileAttachment(this)" />
+                    </label>
+
+                    <!-- Text Message Input -->
+                    <input
+                      type="text"
+                      id="chatInputMessage"
+                      required
+                      placeholder="Tulis pesan konsultasi untuk dosen..."
+                      class="flex-1 border border-slate-300 rounded-md px-3 py-2 text-xs focus:outline-none focus:border-sage-600 min-h-[44px]"
+                    />
+
+                    <!-- Send Button -->
+                    <button type="submit" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-2 rounded-md transition flex items-center gap-1.5 border border-sage-800 min-h-[44px]">
+                      <span class="hidden sm:inline">Kirim</span>
+                      <i class="fa-solid fa-paper-plane text-xs" aria-hidden="true"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PAGE 8: USER - REQUEST TOPIK MATERI -->
+          <div id="page-user-request-topic" class="page-view space-y-6 hidden">
+            <div class="bg-white p-5 rounded-lg border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div>
+                <h1 class="text-lg font-semibold text-slate-900">Request Topik Pembelajaran</h1>
+                <p class="text-xs text-slate-500 mt-0.5">Pengajuan topik atau materi baru yang dibutuhkan peserta.</p>
+              </div>
+              <button onclick="openModal('modalRequestMateri')" class="bg-sage-700 hover:bg-sage-800 text-white font-medium text-xs px-4 py-2.5 rounded-md transition flex items-center gap-2 border border-sage-800 min-h-[48px]">
+                <i class="fa-regular fa-lightbulb text-xs" aria-hidden="true"></i> Usulkan Topik Baru
+              </button>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 p-5 space-y-3">
+              <h3 class="font-medium text-xs text-slate-500 uppercase tracking-wider">Usulan Terbaru Dari Peserta:</h3>
+
+              <div class="p-3.5 bg-slate-50 rounded border border-slate-200 flex justify-between items-center text-xs">
+                <div>
+                  <div class="font-medium text-slate-900">Panduan Desain WCAG 2.1 Lanjutan</div>
+                  <div class="text-slate-500">Status: Dalam Peninjauan Pemateri</div>
+                </div>
+                <span class="bg-white text-slate-700 border border-slate-200 px-2.5 py-1 rounded font-medium">+6 Dukungan</span>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- MODALS FORMAL & SIMPEL -->
+
+    <!-- Modal 1: Buat Topik Diskusi -->
+    <div id="modalCreateTopic" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-none z-50 items-center justify-center p-4">
+      <div class="bg-white rounded-lg p-5 max-w-md w-full space-y-4 border border-slate-200 shadow-lg text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="font-semibold text-sm text-slate-900">Buat Topik Diskusi Baru</h3>
+          <button onclick="closeModal('modalCreateTopic')" class="text-slate-400 hover:text-slate-600 p-2 min-h-[44px] min-w-[44px]" aria-label="Tutup modal">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form onsubmit="handleModalSubmit(event, 'modalCreateTopic', 'Topik diskusi berhasil dikirim.')" class="space-y-3">
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Judul Topik</label>
+            <input type="text" required placeholder="Tuliskan judul topik..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Isi Diskusi</label>
+            <textarea rows="3" required placeholder="Jelaskan pertanyaan atau topik Anda..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600"></textarea>
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeModal('modalCreateTopic')" class="px-4 py-2 rounded font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 min-h-[44px]">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded font-medium bg-sage-700 text-white hover:bg-sage-800 min-h-[44px]">Kirim Topik</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 2: Pengajuan Konsultasi Baru -->
+    <div id="modalConsultation" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-none z-50 items-center justify-center p-4">
+      <div class="bg-white rounded-lg p-5 max-w-md w-full space-y-4 border border-slate-200 shadow-lg text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="font-semibold text-sm text-slate-900">Pengajuan Konsultasi Dosen Baru</h3>
+          <button onclick="closeModal('modalConsultation')" class="text-slate-400 hover:text-slate-600 p-2 min-h-[44px] min-w-[44px]" aria-label="Tutup modal">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form onsubmit="handleModalSubmit(event, 'modalConsultation', 'Pengajuan sesi obrolan konsultasi baru berhasil diajukan.')" class="space-y-3">
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Pilih Dosen Pengampu</label>
+            <select class="w-full border border-slate-300 rounded p-2 bg-white focus:outline-none focus:border-sage-600 min-h-[44px]">
+              <option>Dr. Indah Permata (Aksesibilitas & UI/UX)</option>
+              <option>Ahmad Rivai, M.T. (Pemrograman Web)</option>
+              <option>Dr. Hendra Kusuma (Sains Data & Python)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Topik Utama Konsultasi</label>
+            <textarea rows="3" required placeholder="Tuliskan latar belakang atau pertanyaan utama yang ingin dikonsultasikan..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600"></textarea>
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeModal('modalConsultation')" class="px-4 py-2 rounded font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 min-h-[44px]">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded font-medium bg-sage-700 text-white hover:bg-sage-800 min-h-[44px]">Mulai Sesi Chat</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 3: Request Topik Materi -->
+    <div id="modalRequestMateri" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-none z-50 items-center justify-center p-4">
+      <div class="bg-white rounded-lg p-5 max-w-md w-full space-y-4 border border-slate-200 shadow-lg text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="font-semibold text-sm text-slate-900">Usulkan Topik Materi Baru</h3>
+          <button onclick="closeModal('modalRequestMateri')" class="text-slate-400 hover:text-slate-600 p-2 min-h-[44px] min-w-[44px]" aria-label="Tutup modal">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form onsubmit="handleModalSubmit(event, 'modalRequestMateri', 'Request topik materi berhasil diajukan.')" class="space-y-3">
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Judul Topik yang Diharapkan</label>
+            <input type="text" required placeholder="Contoh: Pemrograman Python Lanjutan..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeModal('modalRequestMateri')" class="px-4 py-2 rounded font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 min-h-[44px]">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded font-medium bg-sage-700 text-white hover:bg-sage-800 min-h-[44px]">Kirim Usulan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 4: Buat Akun Baru (Admin) -->
+    <div id="modalCreateAccount" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-none z-50 items-center justify-center p-4">
+      <div class="bg-white rounded-lg p-5 max-w-md w-full space-y-4 border border-slate-200 shadow-lg text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="font-semibold text-sm text-slate-900">Tambah Akun Baru</h3>
+          <button onclick="closeModal('modalCreateAccount')" class="text-slate-400 hover:text-slate-600 p-2 min-h-[44px] min-w-[44px]" aria-label="Tutup modal">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form onsubmit="handleModalSubmit(event, 'modalCreateAccount', 'Akun baru berhasil didaftarkan.')" class="space-y-3">
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Nama Lengkap</label>
+            <input type="text" required placeholder="Masukkan nama..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Email</label>
+            <input type="email" required placeholder="email@domain.com" class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Role Akun</label>
+            <select class="w-full border border-slate-300 rounded p-2 bg-white focus:outline-none focus:border-sage-600 min-h-[44px]">
+              <option value="pemateri">Pemateri</option>
+              <option value="user">User / Peserta</option>
+            </select>
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeModal('modalCreateAccount')" class="px-4 py-2 rounded font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 min-h-[44px]">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded font-medium bg-sage-700 text-white hover:bg-sage-800 min-h-[44px]">Simpan Akun</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 5: Tambah Katalog (Pemateri) -->
+    <div id="modalAddCatalog" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-none z-50 items-center justify-center p-4">
+      <div class="bg-white rounded-lg p-5 max-w-md w-full space-y-4 border border-slate-200 shadow-lg text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="font-semibold text-sm text-slate-900">Tambah Kursus Baru</h3>
+          <button onclick="closeModal('modalAddCatalog')" class="text-slate-400 hover:text-slate-600 p-2 min-h-[44px] min-w-[44px]" aria-label="Tutup modal">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form onsubmit="handleModalSubmit(event, 'modalAddCatalog', 'Katalog kursus baru telah diterbitkan.')" class="space-y-3">
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Judul Kursus</label>
+            <input type="text" required placeholder="Tuliskan judul kursus..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Kategori</label>
+            <input type="text" required placeholder="Contoh: Pemrograman Web" class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeModal('modalAddCatalog')" class="px-4 py-2 rounded font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 min-h-[44px]">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded font-medium bg-sage-700 text-white hover:bg-sage-800 min-h-[44px]">Terbitkan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal 6: Reset Password (Admin) -->
+    <div id="modalResetPassword" class="hidden fixed inset-0 bg-slate-900/40 backdrop-blur-none z-50 items-center justify-center p-4">
+      <div class="bg-white rounded-lg p-5 max-w-md w-full space-y-4 border border-slate-200 shadow-lg text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <h3 class="font-semibold text-sm text-slate-900">Reset Kata Sandi</h3>
+          <button onclick="closeModal('modalResetPassword')" class="text-slate-400 hover:text-slate-600 p-2 min-h-[44px] min-w-[44px]" aria-label="Tutup modal">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <form onsubmit="handleModalSubmit(event, 'modalResetPassword', 'Kata sandi pengguna berhasil diperbarui.')" class="space-y-3">
+          <div>
+            <label class="block font-medium text-slate-700 mb-1">Kata Sandi Baru</label>
+            <input type="password" required placeholder="Masukkan password baru..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-sage-600 min-h-[44px]" />
+          </div>
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeModal('modalResetPassword')" class="px-4 py-2 rounded font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 min-h-[44px]">Batal</button>
+            <button type="submit" class="px-4 py-2 rounded font-medium bg-sage-700 text-white hover:bg-sage-800 min-h-[44px]">Simpan Kata Sandi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+      let currentRole = "user";
+      let currentSelectedLecturer = "dosen1";
+      let selectedFileAttachment = null;
+
+      const lecturersData = {
+        dosen1: {
+          name: "Dr. Indah Permata",
+          badge: "Aksesibilitas & UI/UX",
+          avatar: "IP",
+          online: true,
+          autoReplies: [
+            "Terima kasih atas pesan Anda. Saya sudah meninjau lampiran yang dikirimkan.",
+            "Saran saya, pastikan rasio kontras teks utama minimal 4.5:1 sesuai acuan WCAG.",
+            "Sesi bimbingan tatap muka berikutnya bisa dijadwalkan pada hari Kamis jam 10:00.",
+          ],
+          replyIndex: 0,
+        },
+        dosen2: {
+          name: "Ahmad Rivai, M.T.",
+          badge: "Pemrograman Web",
+          avatar: "AR",
+          online: false,
+          autoReplies: ["Halo! Saat ini saya sedang di luar jam konsultasi, namun pesan Anda sudah saya terima.", "Silakan periksa kembali sintaks HTML semantic sebelum mengajukan ke repository."],
+          replyIndex: 0,
+        },
+        dosen3: {
+          name: "Dr. Hendra Kusuma",
+          badge: "Sains Data & Python",
+          avatar: "HK",
+          online: true,
+          autoReplies: ["Halo! Ada kendala pada bagian library data processing?", "Coba periksa kembali struktur dataframe sebelum dijalankan."],
+          replyIndex: 0,
+        },
+      };
+
+      const roleConfig = {
+        admin: {
+          name: "Sarah Amelia",
+          badge: "Administrator",
+          avatarText: "SA",
+          bannerText: '<i class="fa-solid fa-shield text-sage-600"></i> Administrator System',
+          showAdminGroup: true,
+          showPemateriGroup: true,
+          showUserGroup: true,
+        },
+        pemateri: {
+          name: "Dr. Indah Permata",
+          badge: "Pemateri / Dosen",
+          avatarText: "IP",
+          bannerText: '<i class="fa-solid fa-chalkboard-user text-sage-600"></i> Pemateri Dosen',
+          showAdminGroup: false,
+          showPemateriGroup: true,
+          showUserGroup: true,
+        },
+        user: {
+          name: "Sarah Amelia",
+          badge: "User / Peserta",
+          avatarText: "SA",
+          bannerText: '<i class="fa-solid fa-graduation-cap text-sage-600"></i> User Peserta',
+          showAdminGroup: false,
+          showPemateriGroup: false,
+          showUserGroup: true,
+        },
+      };
+
+      window.onload = function () {
+        setupMobileMenu();
+      };
+
+      // AUTH & VIEW SWITCHING LOGIC
+      function showAuthView(view) {
+        document.getElementById("authSection").classList.remove("hidden");
+        document.getElementById("appSection").classList.add("hidden");
+
+        if (view === "login") {
+          document.getElementById("loginCard").classList.remove("hidden");
+          document.getElementById("registerCard").classList.add("hidden");
+        } else {
+          document.getElementById("loginCard").classList.add("hidden");
+          document.getElementById("registerCard").classList.remove("hidden");
+        }
+      }
+
+      function togglePemateriExtraField(type) {
+        const extra = document.getElementById("pemateriExtraField");
+        if (type === "pemateri") {
+          extra.classList.remove("hidden");
+        } else {
+          extra.classList.add("hidden");
+        }
+      }
+
+      function handleLoginSubmit(e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value.trim();
+        const selectedRole = (document.getElementById("roleSelector").value = document.getElementById("loginDefaultRole").value);
+
+        // Direct entrance into App
+        enterDashboard(email, selectedRole);
+      }
+
+      function handleRegisterSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById("regName").value.trim();
+        const email = document.getElementById("regEmail").value.trim();
+        const regType = document.getElementById("regType").value;
+
+        let roleToSet = regType === "pemateri" ? "pemateri" : "user";
+
+        if (regType === "pemateri") {
+          alert(`Pengajuan Pendaftaran Pemateri untuk ${name} berhasil dikirim! Anda sekarang dapat mencoba tampilan area Pemateri.`);
+        }
+
+        document.getElementById("roleSelector").value = roleToSet;
+        enterDashboard(email, roleToSet, name);
+      }
+
+      function enterDashboard(email, role, customName) {
+        document.getElementById("authSection").classList.add("hidden");
+        document.getElementById("appSection").classList.remove("hidden");
+
+        // Apply selected role
+        switchRole(role);
+
+        if (customName) {
+          document.getElementById("userName").innerText = customName;
+          document.getElementById("welcomeUserName").innerText = customName.split(" ")[0];
+          document.getElementById("userAvatarText").innerText = customName.substring(0, 2).toUpperCase();
+        }
+      }
+
+      function handleLogout() {
+        showAuthView("login");
+      }
+
+      // Font Scaler Engine
+      function setFontScale(scale, ev) {
+        document.body.classList.remove("font-scale-normal", "font-scale-large", "font-scale-xlarge");
+        document.body.classList.add(`font-scale-${scale}`);
+
+        const btns = document.querySelectorAll(".font-btn");
+        btns.forEach((btn) => {
+          btn.classList.remove("bg-sage-700", "text-white");
+          btn.classList.add("hover:bg-sage-700", "text-sage-100");
+        });
+        if (ev && ev.target) {
+          ev.target.classList.add("bg-sage-700", "text-white");
+          ev.target.classList.remove("text-sage-100");
+        }
+      }
+
+      // Role Switcher Handler
+      function switchRole(role) {
+        currentRole = role;
+        const config = roleConfig[role];
+
+        document.getElementById("userName").innerText = config.name;
+        document.getElementById("welcomeUserName").innerText = config.name.split(" ")[0];
+        document.getElementById("userRoleBadge").innerText = config.badge;
+        document.getElementById("userAvatarText").innerText = config.avatarText;
+        document.getElementById("sidebarRoleName").innerHTML = config.bannerText;
+
+        document.getElementById("groupAdmin").style.display = config.showAdminGroup ? "block" : "none";
+        document.getElementById("groupPemateri").style.display = config.showPemateriGroup ? "block" : "none";
+        document.getElementById("groupUser").style.display = config.showUserGroup ? "block" : "none";
+
+        if (role === "admin") navigateTo("user-dashboard");
+        else if (role === "pemateri") navigateTo("pemateri-catalog");
+        else navigateTo("user-dashboard");
+      }
+
+      // View Navigation Function
+      function navigateTo(pageId) {
+        const pages = document.querySelectorAll(".page-view");
+        pages.forEach((page) => page.classList.add("hidden"));
+
+        const targetPage = document.getElementById(`page-${pageId}`);
+        if (targetPage) targetPage.classList.remove("hidden");
+
+        const navButtons = document.querySelectorAll(".nav-btn");
+        navButtons.forEach((btn) => {
+          btn.classList.remove("bg-sage-50", "text-sage-800", "border-sage-200");
+          btn.classList.add("text-slate-700", "border-transparent");
+        });
+
+        const activeBtn = document.getElementById(`nav-${pageId}`);
+        if (activeBtn) {
+          activeBtn.classList.add("bg-sage-50", "text-sage-800", "border-sage-200");
+          activeBtn.classList.remove("text-slate-700", "border-transparent");
+        }
+
+        const sidebar = document.getElementById("sidebar");
+        if (!sidebar.classList.contains("-translate-x-full")) {
+          sidebar.classList.add("-translate-x-full");
+        }
+      }
+
+      // CHAT PRIVAT DOSEN - LOGIC IMPLEMENTATION
+      function selectLecturer(id) {
+        currentSelectedLecturer = id;
+        const data = lecturersData[id];
+
+        // Highlight button
+        document.querySelectorAll(".lecturer-btn").forEach((btn) => {
+          btn.classList.remove("bg-sage-50", "border-l-4", "border-sage-700");
+        });
+        const activeLecturerBtn = document.getElementById(`lecturer-item-${id}`);
+        if (activeLecturerBtn) {
+          activeLecturerBtn.classList.add("bg-sage-50", "border-l-4", "border-sage-700");
+        }
+
+        // Update Header Panel
+        document.getElementById("activeChatName").innerText = data.name;
+        document.getElementById("activeChatBadge").innerText = data.badge;
+        document.getElementById("activeChatAvatar").innerText = data.avatar;
+
+        const statusDot = document.getElementById("activeChatStatusDot");
+        const statusText = document.getElementById("activeChatStatusText");
+
+        if (data.online) {
+          statusDot.className = "w-2.5 h-2.5 bg-emerald-500 rounded-full absolute bottom-0 right-0 border-2 border-white";
+          statusText.innerText = "• Online";
+          statusText.className = "text-emerald-700 font-medium";
+        } else {
+          statusDot.className = "w-2.5 h-2.5 bg-slate-300 rounded-full absolute bottom-0 right-0 border-2 border-white";
+          statusText.innerText = "• Offline";
+          statusText.className = "text-slate-400 font-medium";
+        }
+
+        // Mock refresh chatbox content for selected lecturer
+        const box = document.getElementById("chatMessagesBox");
+        box.innerHTML = `
+                <div class="text-center my-2">
+                    <span class="bg-slate-200/60 text-slate-600 text-[10px] font-medium px-2.5 py-0.5 rounded-full">Sesi Obrolan Privat</span>
+                </div>
+                <div class="flex items-start gap-2.5 max-w-[85%]">
+                    <div class="w-7 h-7 rounded-full bg-sage-200 text-sage-800 font-medium text-[10px] flex items-center justify-center border border-sage-300 shrink-0">
+                        ${data.avatar}
+                    </div>
+                    <div class="space-y-1">
+                        <div class="bg-white text-slate-800 text-xs p-3 rounded-lg border border-slate-200 shadow-2xs leading-relaxed">
+                            Halo, saya ${data.name}. Ada topik terkait ${data.badge} yang ingin dibahas?
+                        </div>
+                        <div class="text-[10px] text-slate-400 pl-1">Baru Saja</div>
+                    </div>
+                </div>
+            `;
+      }
+
+      function filterLecturers() {
+        const query = document.getElementById("searchLecturerInput").value.toLowerCase();
+        const items = document.querySelectorAll(".lecturer-btn");
+        items.forEach((item) => {
+          const text = item.innerText.toLowerCase();
+          item.style.display = text.includes(query) ? "flex" : "none";
+        });
+      }
+
+      function handleFileAttachment(input) {
+        if (input.files && input.files[0]) {
+          selectedFileAttachment = input.files[0];
+          document.getElementById("attachmentFileName").innerText = selectedFileAttachment.name;
+          document.getElementById("attachmentPreview").classList.remove("hidden");
+        }
+      }
+
+      function removeAttachment() {
+        selectedFileAttachment = null;
+        document.getElementById("chatFileInput").value = "";
+        document.getElementById("attachmentPreview").classList.add("hidden");
+      }
+
+      function sendPrivateChatMessage(e) {
+        e.preventDefault();
+        const input = document.getElementById("chatInputMessage");
+        const messageText = input.value.trim();
+
+        if (!messageText && !selectedFileAttachment) return;
+
+        const box = document.getElementById("chatMessagesBox");
+        const timeNow = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        let fileMarkup = "";
+        if (selectedFileAttachment) {
+          fileMarkup = `
+                    <div class="mb-2 p-2 bg-sage-800/30 rounded border border-sage-600/40 flex items-center gap-2 text-[11px] text-sage-100">
+                        <i class="fa-solid fa-file-lines text-xs"></i>
+                        <span class="truncate font-medium">${selectedFileAttachment.name}</span>
+                    </div>
+                `;
+        }
+
+        const outgoingHtml = `
+                <div class="flex items-start justify-end gap-2.5 max-w-[85%] ml-auto">
+                    <div class="space-y-1 text-right">
+                        <div class="bg-sage-700 text-white text-xs p-3 rounded-lg border border-sage-800 shadow-2xs text-left leading-relaxed">
+                            ${fileMarkup}
+                            ${messageText}
+                        </div>
+                        <div class="text-[10px] text-slate-400 pr-1 flex items-center justify-end gap-1">
+                            <span>${timeNow}</span>
+                            <i class="fa-solid fa-check text-slate-400 text-[10px]" title="Terkirim"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        box.insertAdjacentHTML("beforeend", outgoingHtml);
+        box.scrollTop = box.scrollHeight;
+
+        input.value = "";
+        removeAttachment();
+
+        // Simulate automatic lecturer response
+        setTimeout(() => {
+          triggerLecturerAutoReply();
+        }, 1200);
+      }
+
+      function triggerLecturerAutoReply() {
+        const data = lecturersData[currentSelectedLecturer];
+        const replyText = data.autoReplies[data.replyIndex % data.autoReplies.length];
+        data.replyIndex++;
+
+        const box = document.getElementById("chatMessagesBox");
+        const timeNow = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+        const incomingHtml = `
+                <div class="flex items-start gap-2.5 max-w-[85%]">
+                    <div class="w-7 h-7 rounded-full bg-sage-200 text-sage-800 font-medium text-[10px] flex items-center justify-center border border-sage-300 shrink-0">
+                        ${data.avatar}
+                    </div>
+                    <div class="space-y-1">
+                        <div class="bg-white text-slate-800 text-xs p-3 rounded-lg border border-slate-200 shadow-2xs leading-relaxed">
+                            ${replyText}
+                        </div>
+                        <div class="text-[10px] text-slate-400 pl-1">${timeNow}</div>
+                    </div>
+                </div>
+            `;
+
+        box.insertAdjacentHTML("beforeend", incomingHtml);
+        box.scrollTop = box.scrollHeight;
+      }
+
+      // Post Q&A Comment on Video Page
+      function postVideoComment(e) {
+        e.preventDefault();
+        const input = document.getElementById("videoCommentInput");
+        const val = input.value.trim();
+        if (!val) return;
+
+        const list = document.getElementById("videoCommentsList");
+        const html = `
+                <div class="p-3.5 bg-slate-50 rounded-md border border-slate-200 space-y-1 text-xs">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-slate-900">${roleConfig[currentRole].name} (${currentRole.toUpperCase()})</span>
+                        <span class="text-slate-400">Baru Saja</span>
+                    </div>
+                    <p class="text-slate-700">${val}</p>
+                </div>
+            `;
+        list.insertAdjacentHTML("afterbegin", html);
+        input.value = "";
+      }
+
+      // Modal Helpers
+      function openModal(modalId) {
+        const el = document.getElementById(modalId);
+        if (el) {
+          el.classList.remove("hidden");
+          el.classList.add("modal-active");
+        }
+      }
+
+      function closeModal(modalId) {
+        const el = document.getElementById(modalId);
+        if (el) {
+          el.classList.add("hidden");
+          el.classList.remove("modal-active");
+        }
+      }
+
+      function handleModalSubmit(e, modalId, msg) {
+        e.preventDefault();
+        alert(msg);
+        closeModal(modalId);
+        e.target.reset();
+      }
+
+      function approveRequest(rowId, name) {
+        const row = document.getElementById(rowId);
+        if (row) {
+          row.querySelector(".badge-status").className = "badge-status bg-sage-50 text-sage-800 border border-sage-200 px-2 py-0.5 rounded text-[11px] font-medium";
+          row.querySelector(".badge-status").innerText = "Disetujui";
+        }
+      }
+
+      function rejectRequest(rowId) {
+        const row = document.getElementById(rowId);
+        if (row) {
+          row.querySelector(".badge-status").className = "badge-status bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded text-[11px] font-medium";
+          row.querySelector(".badge-status").innerText = "Ditolak";
+        }
+      }
+
+      function promoteUser(rowId) {
+        alert("Pengguna berhasil dipromosikan menjadi Pemateri.");
+        const row = document.getElementById(rowId);
+        if (row) row.remove();
+      }
+
+      function deleteAccount(rowId) {
+        if (confirm("Apakah Anda yakin ingin menghapus akun ini?")) {
+          const row = document.getElementById(rowId);
+          if (row) row.remove();
+        }
+      }
+
+      function setupMobileMenu() {
+        const btn = document.getElementById("mobileMenuBtn");
+        const sidebar = document.getElementById("sidebar");
+        btn.addEventListener("click", () => {
+          sidebar.classList.toggle("-translate-x-full");
+        });
+      }
+    </script>
+  </body>
+</html>

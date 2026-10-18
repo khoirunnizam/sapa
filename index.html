@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sapa - Teman yang Siap Menemani</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              sage: {
+                50: "#f6f8f6",
+                100: "#e5eae6",
+                200: "#c8d4cb",
+                300: "#a3b8aa",
+                400: "#75947e",
+                500: "#52735b",
+                600: "#3f5b47",
+                700: "#324838",
+                800: "#28392d",
+                900: "#223025",
+                950: "#131c15",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+              dyslexic: ["Comic Sans MS", "OpenDyslexic", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Font Inter & Google Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        vertical-align: middle;
+      }
+      .skip-link {
+        position: absolute;
+        top: -60px;
+        left: 10px;
+        background: #28392d;
+        color: #ffffff;
+        padding: 12px 20px;
+        z-index: 100;
+        transition: top 0.2s ease;
+        font-weight: 500;
+        border-radius: 8px;
+      }
+      .skip-link:focus {
+        top: 10px;
+        outline: 3px solid #52735b;
+      }
+      /* Accessibility Text Scales */
+      .text-scale-normal {
+        font-size: 100%;
+      }
+      .text-scale-large {
+        font-size: 115%;
+      }
+      .text-scale-xlarge {
+        font-size: 130%;
+      }
+
+      /* High Contrast Night Mode (Optional Toggle) */
+      .high-contrast-mode {
+        background-color: #0f1711 !important;
+        color: #ffffff !important;
+      }
+      .high-contrast-mode body,
+      .high-contrast-mode section,
+      .high-contrast-mode header,
+      .high-contrast-mode footer,
+      .high-contrast-mode div {
+        background-color: #162219 !important;
+        color: #ffffff !important;
+        border-color: #52735b !important;
+      }
+      .high-contrast-mode a,
+      .high-contrast-mode button {
+        color: #a3e635 !important;
+      }
+
+      /* OpenDyslexic Mode */
+      .dyslexic-mode * {
+        font-family: "Comic Sans MS", "OpenDyslexic", sans-serif !important;
+        letter-spacing: 0.05em !important;
+        word-spacing: 0.1em !important;
+        line-height: 1.7 !important;
+      }
+    </style>
+  </head>
+  <body id="app-body" class="bg-sage-50 text-sage-800 font-sans text-scale-normal antialiased min-h-screen flex flex-col transition-all duration-150">
+    <!-- 1. Lompat ke Konten Utama (Skip Link) -->
+    <a href="#main-content" class="skip-link">Lompat ke konten utama</a>
+
+    <!-- Header & Navigasi Utama -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-sage-200">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+        <!-- Logo Sapa -->
+        <a href="#" class="flex items-center gap-2 text-2xl font-semibold text-sage-900 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2 py-1">
+          <span class="w-9 h-9 bg-sage-600 text-white flex items-center justify-center rounded-xl font-medium text-xl shadow-sm">S</span>
+          <span>Sapa</span>
+        </a>
+
+        <!-- Menu Navigasi Utama -->
+        <nav aria-label="Navigasi Utama" class="hidden md:flex items-center gap-6 font-normal text-sage-700">
+          <a href="#beranda" class="hover:text-sage-900 py-2 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2">Beranda</a>
+          <a href="#cara-kerja" class="hover:text-sage-900 py-2 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2">Cara Kerja</a>
+          <a href="#tentang" class="hover:text-sage-900 py-2 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2">Tentang</a>
+          <a href="#layanan" class="hover:text-sage-900 py-2 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2">Layanan</a>
+          <a href="#cerita" class="hover:text-sage-900 py-2 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2">Cerita Teman</a>
+          <a href="#faq" class="hover:text-sage-900 py-2 focus:outline-none focus:ring-2 focus:ring-sage-500 rounded-lg px-2">Tanya Jawab</a>
+        </nav>
+
+        <!-- Aksi Masuk / Daftar -->
+        <div class="flex items-center gap-3">
+          <a href="login.html" class="min-h-[44px] px-4 py-2 rounded-xl border border-sage-300 text-sage-800 font-medium hover:bg-sage-100 focus:outline-none focus:ring-2 focus:ring-sage-500 transition-colors"> Masuk </a>
+          <a href="login.html" class="min-h-[44px] px-4 py-2 rounded-xl bg-sage-600 hover:bg-sage-700 text-white font-medium focus:outline-none focus:ring-2 focus:ring-sage-500 shadow-sm transition-colors"> Daftar Sekarang </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main id="main-content" class="flex-grow">
+      <!-- HERO SECTION -->
+      <section id="beranda" class="py-12 md:py-16 bg-gradient-to-b from-sage-100/50 to-sage-50 border-b border-sage-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 bg-sage-200/70 text-sage-800 px-3.5 py-1.5 rounded-full text-sm font-medium mb-6 border border-sage-300/60">
+              <span class="material-symbols-outlined text-base">volunteer_activism</span>
+              <span>Sapa - Teman yang siap menemani</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-semibold text-sage-900 mb-5 leading-tight">Halo, kami Sapa. Teman yang siap menemani.</h1>
+            <p class="text-base md:text-lg text-sage-700 mb-8 leading-relaxed">Tempat untuk teman berkebutuhan khusus mendapatkan informasi yang jelas, pendampingan yang sabar, dan komunitas yang menerima apa adanya.</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <a href="login.html" class="min-h-[48px] px-7 py-3 bg-sage-600 hover:bg-sage-700 text-white font-medium rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-sage-500 flex items-center gap-2 transition-colors">
+                <span>Daftar sekarang</span>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+              <a href="login.html" class="min-h-[48px] px-7 py-3 bg-white border border-sage-300 hover:bg-sage-100 text-sage-800 font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-sage-500 transition-colors"> Masuk </a>
+            </div>
+            <p class="text-xs text-sage-600 mt-3">Masuk atau daftar dulu untuk membuka dashboard.</p>
+          </div>
+          <div class="rounded-2xl overflow-hidden border border-sage-200 shadow-sm bg-white">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Suasana belajar bersama yang inklusif" class="w-full h-72 object-cover opacity-90" />
+          </div>
+        </div>
+      </section>
+
+      <!-- DIRANCANG UNTUK SEMUA -->
+      <section class="py-16 bg-white border-b border-sage-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-2">Dirancang untuk semua</h2>
+            <p class="text-sage-600">Lima cara belajar yang saling terhubung, jadi kamu bisa mulai dari mana saja.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-6 rounded-2xl border border-sage-200 bg-sage-50/40">
+              <div class="w-10 h-10 rounded-xl bg-sage-200 text-sage-800 flex items-center justify-center font-medium mb-4">
+                <span class="material-symbols-outlined text-xl">smart_display</span>
+              </div>
+              <h3 class="text-lg font-semibold text-sage-900 mb-2">Video pembelajaran multimodal</h3>
+              <p class="text-sage-600 text-sm leading-relaxed">Satu materi disajikan lewat suara, teks, dan visual sekaligus.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-sage-200 bg-sage-50/40">
+              <div class="w-10 h-10 rounded-xl bg-sage-200 text-sage-800 flex items-center justify-center font-medium mb-4">
+                <span class="material-symbols-outlined text-xl">quiz</span>
+              </div>
+              <h3 class="text-lg font-semibold text-sage-900 mb-2">Kuis interaktif</h3>
+              <p class="text-sage-600 text-sm leading-relaxed">Latihan singkat setelah menonton untuk mengecek pemahaman.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-sage-200 bg-sage-50/40">
+              <div class="w-10 h-10 rounded-xl bg-sage-200 text-sage-800 flex items-center justify-center font-medium mb-4">
+                <span class="material-symbols-outlined text-xl">forum</span>
+              </div>
+              <h3 class="text-lg font-semibold text-sage-900 mb-2">Konsultasi dua arah</h3>
+              <p class="text-sage-600 text-sm leading-relaxed">Bertanya langsung ke dosen dan mendapat jawaban.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-sage-200 bg-sage-50/40">
+              <div class="w-10 h-10 rounded-xl bg-sage-200 text-sage-800 flex items-center justify-center font-medium mb-4">
+                <span class="material-symbols-outlined text-xl">video_call</span>
+              </div>
+              <h3 class="text-lg font-semibold text-sage-900 mb-2">Request video</h3>
+              <p class="text-sage-600 text-sm leading-relaxed">Materi belum ada? Ajukan permintaan video yang kamu butuhkan.</p>
+            </div>
+            <div class="p-6 rounded-2xl border border-sage-200 bg-sage-50/40 md:col-span-2 lg:col-span-1">
+              <div class="w-10 h-10 rounded-xl bg-sage-200 text-sage-800 flex items-center justify-center font-medium mb-4">
+                <span class="material-symbols-outlined text-xl">menu_book</span>
+              </div>
+              <h3 class="text-lg font-semibold text-sage-900 mb-2">Katalog</h3>
+              <p class="text-sage-600 text-sm leading-relaxed">Semua materi tertata di satu tempat dan mudah dicari.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARA KERJA (7 LANGKAH) -->
+      <section id="cara-kerja" class="py-16 bg-sage-50/60 border-b border-sage-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-2">Cara kerja</h2>
+            <p class="text-sage-600">Dari mencari materi sampai video baru dipublikasikan, ada tujuh langkah sederhana.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">1</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Mencari materi lewat katalog</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Telusuri katalog untuk menemukan materi yang kamu perlukan.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">2</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Menonton video</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Pelajari materi lewat video multimodal dengan cara yang paling nyaman buatmu.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">3</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Mengerjakan kuis</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Cek pemahamanmu dengan kuis interaktif setelah menonton.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">4</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Menghubungi dosen</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Masih bingung? Konsultasi dua arah langsung dengan dosen.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">5</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Request materi yang belum ada</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Tidak menemukan materinya? Ajukan permintaan video baru.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">6</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Pengelola mengelola prioritas</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Pengelola menyusun urutan permintaan sesuai prioritas.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-sage-200 shadow-2xs">
+              <span class="w-8 h-8 shrink-0 bg-sage-600 text-white rounded-lg flex items-center justify-center font-medium text-sm">7</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Video dipublikasikan</h3>
+                <p class="text-sage-600 text-sm mt-0.5">Video yang sudah jadi dipublikasikan agar bisa ditonton semua orang.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APA ITU SAPA -->
+      <section id="tentang" class="py-16 bg-white border-b border-sage-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+          <div class="bg-sage-100/50 p-8 md:p-10 rounded-2xl border border-sage-200">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-3">Apa itu Sapa?</h2>
+            <p class="text-sage-700 text-base md:text-lg mb-3 leading-relaxed">
+              Sapa dimulai dari satu keinginan sederhana: tidak ada teman yang merasa sendirian. Kami membangun ruang digital yang tenang, jelas, dan mudah dipakai oleh siapa pun.
+            </p>
+            <p class="text-sage-700 text-base md:text-lg mb-8 leading-relaxed">Di sini kamu bisa mencari informasi, meminta pendampingan, dan bertemu teman-teman baru, dengan ritme yang kamu pilih sendiri.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-sage-200">
+              <div class="bg-white p-4 rounded-xl border border-sage-200">
+                <span class="text-sage-600 font-semibold text-base mb-1 block">1</span>
+                <h3 class="font-semibold text-sage-900">Buat akun</h3>
+                <p class="text-xs text-sage-600 mt-1">Daftar dengan nama dan email, hanya satu menit.</p>
+              </div>
+              <div class="bg-white p-4 rounded-xl border border-sage-200">
+                <span class="text-sage-600 font-semibold text-base mb-1 block">2</span>
+                <h3 class="font-semibold text-sage-900">Masuk ke dashboard</h3>
+                <p class="text-xs text-sage-600 mt-1">Semua layanan ada di satu tempat yang rapi.</p>
+              </div>
+              <div class="bg-white p-4 rounded-xl border border-sage-200">
+                <span class="text-sage-600 font-semibold text-base mb-1 block">3</span>
+                <h3 class="font-semibold text-sage-900">Pilih kebutuhanmu</h3>
+                <p class="text-xs text-sage-600 mt-1">Pelan-pelan saja, sesuai kenyamananmu.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAYANAN SAPA -->
+      <section id="layanan" class="py-16 bg-sage-50/60 border-b border-sage-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-2">Apa yang bisa Sapa bantu?</h2>
+            <p class="text-sage-600">Empat layanan utama yang bisa kamu pakai setelah masuk ke dashboard.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-sage-200 flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage-100 text-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">info</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-sage-900 mb-1">Informasi</h3>
+                <p class="text-sage-600 text-sm leading-relaxed">Panduan singkat dengan bahasa mudah dan gambar pendukung, supaya tidak bingung mulai dari mana.</p>
+              </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-sage-200 flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage-100 text-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">handshake</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-sage-900 mb-1">Pendampingan</h3>
+                <p class="text-sage-600 text-sm leading-relaxed">Relawan yang siap menemani dengan sabar, dengan ritme yang sesuai kenyamananmu.</p>
+              </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-sage-200 flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage-100 text-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">groups</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-sage-900 mb-1">Komunitas</h3>
+                <p class="text-sage-600 text-sm leading-relaxed">Ngobrol dan berbagi cerita dengan teman-teman yang saling mengerti.</p>
+              </div>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-sage-200 flex items-start gap-4">
+              <div class="w-10 h-10 bg-sage-100 text-sage-700 rounded-xl flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">school</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-sage-900 mb-1">Pelatihan</h3>
+                <p class="text-sage-600 text-sm leading-relaxed">Kelas keterampilan kecil dan santai, bisa diikuti pelan-pelan.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-10">
+            <button onclick="openAuthModal('login')" class="min-h-[48px] px-7 py-3 bg-sage-600 hover:bg-sage-700 text-white font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-sage-500 shadow-sm transition-colors">
+              Masuk untuk memakai layanan
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- UNTUK SIAPA SAPA DIBUAT -->
+      <section class="py-16 bg-white border-b border-sage-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-2">Untuk siapa Sapa dibuat?</h2>
+            <p class="text-sage-600">Untuk semua teman. Tampilan dan layanan kami dirancang agar nyaman bagi berbagai kebutuhan.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="p-5 rounded-xl bg-sage-50/60 border border-sage-200">
+              <div class="flex items-center gap-2 text-sage-700 font-medium mb-1">
+                <span class="material-symbols-outlined text-lg">visibility</span>
+                <h3 class="font-semibold text-sage-900 text-base">Tuna netra & low vision</h3>
+              </div>
+              <p class="text-sage-600 text-xs leading-relaxed">Teks bisa dibesarkan, kontras tinggi, dan terbaca pembaca layar.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-sage-50/60 border border-sage-200">
+              <div class="flex items-center gap-2 text-sage-700 font-medium mb-1">
+                <span class="material-symbols-outlined text-lg">hearing_disabled</span>
+                <h3 class="font-semibold text-sage-900 text-base">Tuli & tuna rungu</h3>
+              </div>
+              <p class="text-sage-600 text-xs leading-relaxed">Informasi disajikan dalam tulisan dan gambar yang jelas, tanpa bergantung pada suara.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-sage-50/60 border border-sage-200">
+              <div class="flex items-center gap-2 text-sage-700 font-medium mb-1">
+                <span class="material-symbols-outlined text-lg">psychology</span>
+                <h3 class="font-semibold text-sage-900 text-base">Autisme</h3>
+              </div>
+              <p class="text-sage-600 text-xs leading-relaxed">Tampilan tenang, tanpa kedip dan suara yang mengagetkan.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-sage-50/60 border border-sage-200">
+              <div class="flex items-center gap-2 text-sage-700 font-medium mb-1">
+                <span class="material-symbols-outlined text-lg">text_fields</span>
+                <h3 class="font-semibold text-sage-900 text-base">Disleksia</h3>
+              </div>
+              <p class="text-sage-600 text-xs leading-relaxed">Pilihan huruf ramah disleksia, jarak baris dan huruf yang bisa diatur.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-sage-50/60 border border-sage-200">
+              <div class="flex items-center gap-2 text-sage-700 font-medium mb-1">
+                <span class="material-symbols-outlined text-lg">accessible</span>
+                <h3 class="font-semibold text-sage-900 text-base">Tuna daksa</h3>
+              </div>
+              <p class="text-sage-600 text-xs leading-relaxed">Bisa dipakai penuh lewat keyboard, dengan tombol yang besar dan mudah disentuh.</p>
+            </div>
+            <div class="p-5 rounded-xl bg-sage-50/60 border border-sage-200">
+              <div class="flex items-center gap-2 text-sage-700 font-medium mb-1">
+                <span class="material-symbols-outlined text-lg">diversity_3</span>
+                <h3 class="font-semibold text-sage-900 text-base">Dan teman lainnya</h3>
+              </div>
+              <p class="text-sage-600 text-xs leading-relaxed">Ceritakan kebutuhanmu, kami bantu menyesuaikan.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIBUAT SUPAYA NYAMAN UNTUKMU -->
+      <section class="py-16 bg-sage-100/40 border-b border-sage-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+          <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-8 text-center">Dibuat supaya nyaman untukmu</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-sage-200">
+              <span class="material-symbols-outlined text-sage-600 text-2xl shrink-0">check_circle</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Bahasa sederhana</h3>
+                <p class="text-sage-600 text-xs mt-0.5">Kalimat pendek tanpa istilah rumit.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-sage-200">
+              <span class="material-symbols-outlined text-sage-600 text-2xl shrink-0">check_circle</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Tampilan tenang</h3>
+                <p class="text-sage-600 text-xs mt-0.5">Tanpa kedip dan tanpa suara yang mengagetkan.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-sage-200">
+              <span class="material-symbols-outlined text-sage-600 text-2xl shrink-0">check_circle</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Bisa diatur</h3>
+                <p class="text-sage-600 text-xs mt-0.5">Ukuran teks, jarak, jenis huruf, dan kontras bisa kamu sesuaikan lewat tombol di pojok kanan bawah.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-sage-200">
+              <span class="material-symbols-outlined text-sage-600 text-2xl shrink-0">check_circle</span>
+              <div>
+                <h3 class="font-semibold text-sage-900 text-base">Ramah keyboard</h3>
+                <p class="text-sage-600 text-xs mt-0.5">Semua bisa dipakai tanpa mouse dan terbaca pembaca layar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERITA DARI TEMAN-TEMAN -->
+      <section id="cerita" class="py-16 bg-white border-b border-sage-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-2">Cerita dari teman-teman</h2>
+            <p class="text-sage-600">Apa kata mereka tentang Sapa.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-sage-50/50 p-6 rounded-2xl border border-sage-200 flex flex-col justify-between">
+              <p class="text-sage-700 italic mb-6 text-sm leading-relaxed">“Tampilannya tenang dan tulisannya jelas. Aku jadi tidak takut mencoba hal baru.”</p>
+              <div class="flex items-center gap-3 pt-4 border-t border-sage-200/60">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Teman 1" class="w-9 h-9 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-sage-900 text-sm">Nama Teman 1</div>
+                  <div class="text-xs text-sage-500">Pengguna Sapa (contoh)</div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-sage-50/50 p-6 rounded-2xl border border-sage-200 flex flex-col justify-between">
+              <p class="text-sage-700 italic mb-6 text-sm leading-relaxed">“Relawannya sabar sekali. Aku boleh bertanya berulang-ulang tanpa dimarahi.”</p>
+              <div class="flex items-center gap-3 pt-4 border-t border-sage-200/60">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Teman 2" class="w-9 h-9 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-sage-900 text-sm">Nama Teman 2</div>
+                  <div class="text-xs text-sage-500">Pengguna Sapa (contoh)</div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-sage-50/50 p-6 rounded-2xl border border-sage-200 flex flex-col justify-between">
+              <p class="text-sage-700 italic mb-6 text-sm leading-relaxed">“Teksnya bisa dibesarkan, jadi mataku tidak cepat lelah. Sangat membantu.”</p>
+              <div class="flex items-center gap-3 pt-4 border-t border-sage-200/60">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Teman 3" class="w-9 h-9 rounded-full object-cover" />
+                <div>
+                  <div class="font-semibold text-sage-900 text-sm">Nama Teman 3</div>
+                  <div class="text-xs text-sage-500">Pengguna Sapa (contoh)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TANYA JAWAB (FAQ Accordion) -->
+      <section id="faq" class="py-16 bg-sage-50/60 border-b border-sage-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-semibold text-sage-900 mb-2">Tanya jawab</h2>
+            <p class="text-sage-600">Hal-hal yang sering ditanyakan teman-teman baru.</p>
+          </div>
+
+          <div class="space-y-3">
+            <details class="bg-white border border-sage-200 rounded-xl p-4 group focus-within:ring-2 focus-within:ring-sage-500">
+              <summary class="font-semibold text-sage-900 text-base cursor-pointer flex justify-between items-center list-none">
+                <span>Siapa saja yang bisa bergabung?</span>
+                <span class="material-symbols-outlined text-sage-500 group-open:rotate-180 transition-transform text-sm">expand_more</span>
+              </summary>
+              <p class="text-sage-600 text-sm mt-3 border-t border-sage-100 pt-3 leading-relaxed">Semua teman berkebutuhan khusus, keluarga, pendamping, dan relawan yang ingin membantu. Kamu cukup membuat akun.</p>
+            </details>
+            <details class="bg-white border border-sage-200 rounded-xl p-4 group focus-within:ring-2 focus-within:ring-sage-500">
+              <summary class="font-semibold text-sage-900 text-base cursor-pointer flex justify-between items-center list-none">
+                <span>Apakah saya harus mendaftar dulu?</span>
+                <span class="material-symbols-outlined text-sage-500 group-open:rotate-180 transition-transform text-sm">expand_more</span>
+              </summary>
+              <p class="text-sage-600 text-sm mt-3 border-t border-sage-100 pt-3 leading-relaxed">Ya. Untuk membuka dashboard, kamu perlu masuk atau mendaftar terlebih dahulu. Halaman perkenalan ini bisa dibaca siapa saja.</p>
+            </details>
+            <details class="bg-white border border-sage-200 rounded-xl p-4 group focus-within:ring-2 focus-within:ring-sage-500">
+              <summary class="font-semibold text-sage-900 text-base cursor-pointer flex justify-between items-center list-none">
+                <span>Bagaimana cara membesarkan tulisan?</span>
+                <span class="material-symbols-outlined text-sage-500 group-open:rotate-180 transition-transform text-sm">expand_more</span>
+              </summary>
+              <p class="text-sage-600 text-sm mt-3 border-t border-sage-100 pt-3 leading-relaxed">
+                Tekan tombol bulat di pojok kanan bawah. Di sana kamu bisa mengatur ukuran teks, jarak, jenis huruf, dan kontras. Pilihanmu akan diingat di perangkat ini.
+              </p>
+            </details>
+            <details class="bg-white border border-sage-200 rounded-xl p-4 group focus-within:ring-2 focus-within:ring-sage-500">
+              <summary class="font-semibold text-sage-900 text-base cursor-pointer flex justify-between items-center list-none">
+                <span>Kalau saya butuh bantuan, bagaimana?</span>
+                <span class="material-symbols-outlined text-sage-500 group-open:rotate-180 transition-transform text-sm">expand_more</span>
+              </summary>
+              <p class="text-sage-600 text-sm mt-3 border-t border-sage-100 pt-3 leading-relaxed">Setelah masuk, kamu bisa meminta pendamping lewat layanan Pendampingan. Relawan kami akan membantu dengan sabar.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER CTA -->
+      <section class="py-16 bg-sage-800 text-white text-center">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6">
+          <h2 class="text-2xl md:text-3xl font-semibold mb-3">Siap bergabung dengan Sapa?</h2>
+          <p class="text-sage-200 text-base mb-6">Masuk atau daftar dulu, lalu dashboard langsung terbuka untukmu.</p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <button onclick="openAuthModal('register')" class="min-h-[48px] px-7 py-3 bg-white text-sage-900 font-medium rounded-xl hover:bg-sage-50 focus:outline-none focus:ring-2 focus:ring-white transition-colors">
+              Daftar akun baru
+            </button>
+            <button onclick="openAuthModal('login')" class="min-h-[48px] px-7 py-3 bg-sage-700 text-white font-medium rounded-xl hover:bg-sage-600 border border-sage-500 focus:outline-none focus:ring-2 focus:ring-white transition-colors">
+              Masuk
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER NAV -->
+    <footer class="bg-sage-900 text-sage-300 py-10 border-t border-sage-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <div class="flex items-center gap-2 text-xl font-semibold text-white mb-1">
+            <span class="w-8 h-8 bg-sage-700 flex items-center justify-center rounded-lg text-sm">S</span>
+            <span>Sapa</span>
+          </div>
+          <p class="text-sage-400 text-xs">Teman untuk semua.</p>
+        </div>
+
+        <nav aria-label="Navigasi Footer" class="flex flex-wrap gap-5 text-sm">
+          <a href="#tentang" class="hover:text-white">Tentang</a>
+          <a href="#layanan" class="hover:text-white">Layanan</a>
+          <button onclick="openAuthModal('login')" class="hover:text-white">Masuk</button>
+          <button onclick="openAuthModal('register')" class="hover:text-white">Daftar</button>
+        </nav>
+      </div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 mt-6 pt-6 border-t border-sage-800/80 text-center text-xs text-sage-400">© 2026 Sapa. Dibuat dengan sabar dan sepenuh hati.</div>
+    </footer>
+
+    <!-- WIDGET AKSESIBILITAS MENGAMBANG (Pojok Kanan Bawah) -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <div id="a11y-menu" class="hidden bg-white border border-sage-200 shadow-xl rounded-2xl p-4 mb-3 w-72 text-sage-800">
+        <div class="flex items-center justify-between border-b border-sage-100 pb-2.5 mb-3">
+          <h3 class="font-semibold text-sm text-sage-900 flex items-center gap-2">
+            <span class="material-symbols-outlined text-sage-600 text-lg">accessibility_new</span>
+            <span>Aksesibilitas</span>
+          </h3>
+          <button onclick="toggleA11yMenu()" class="text-sage-500 hover:text-sage-900 font-bold px-1.5 rounded">&times;</button>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-xs font-medium text-sage-700 mb-1.5">Ukuran Teks:</label>
+          <div class="flex gap-2">
+            <button onclick="setTextScale('normal')" class="flex-1 py-1.5 border border-sage-200 rounded-lg text-xs font-semibold hover:bg-sage-50 focus:ring-2 focus:ring-sage-500">A</button>
+            <button onclick="setTextScale('large')" class="flex-1 py-1.5 border border-sage-200 rounded-lg text-sm font-semibold hover:bg-sage-50 focus:ring-2 focus:ring-sage-500">A+</button>
+            <button onclick="setTextScale('xlarge')" class="flex-1 py-1.5 border border-sage-200 rounded-lg text-base font-semibold hover:bg-sage-50 focus:ring-2 focus:ring-sage-500">A++</button>
+          </div>
+        </div>
+
+        <div class="mb-2.5">
+          <button onclick="toggleDyslexicFont()" class="w-full py-2 bg-sage-50 border border-sage-200 rounded-lg text-xs font-medium hover:bg-sage-100 text-sage-800 focus:ring-2 focus:ring-sage-500 flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">text_fields</span>
+            <span>Mode Ramah Disleksia</span>
+          </button>
+        </div>
+
+        <div>
+          <button onclick="toggleContrast()" class="w-full py-2 bg-sage-800 text-white rounded-lg text-xs font-medium hover:bg-sage-900 focus:ring-2 focus:ring-sage-500 flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">contrast</span>
+            <span>Mode Kontras Tinggi</span>
+          </button>
+        </div>
+      </div>
+
+      <button
+        onclick="toggleA11yMenu()"
+        aria-label="Buka Pengaturan Aksesibilitas"
+        class="w-14 h-14 bg-sage-600 text-white rounded-full flex items-center justify-center shadow-md hover:bg-sage-700 focus:outline-none focus:ring-4 focus:ring-sage-400 border border-white"
+      >
+        <span class="material-symbols-outlined text-2xl">accessibility_new</span>
+      </button>
+    </div>
+
+    <!-- MODAL MASUK / DAFTAR DIRECT SUBMIT -->
+    <div id="auth-modal" class="fixed inset-0 bg-sage-950/40 z-50 flex items-center justify-center p-4 hidden backdrop-blur-2xs">
+      <div class="bg-white rounded-2xl max-w-sm w-full p-6 border border-sage-200 shadow-xl">
+        <div class="flex justify-between items-center mb-4 border-b border-sage-100 pb-2.5">
+          <h3 id="modal-title" class="text-lg font-semibold text-sage-900">Masuk ke Sapa</h3>
+          <button onclick="closeAuthModal()" class="text-sage-400 hover:text-sage-700 text-xl font-bold px-1.5">&times;</button>
+        </div>
+
+        <form onsubmit="handleDirectSubmit(event)" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-medium text-sage-700 mb-1">Email / Nama pengguna</label>
+            <input type="text" required placeholder="Masukkan nama atau email" class="w-full px-3.5 py-2.5 border border-sage-300 rounded-xl focus:ring-2 focus:ring-sage-500 focus:outline-none text-sm text-sage-800" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-sage-700 mb-1">Kata Sandi</label>
+            <input type="password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 border border-sage-300 rounded-xl focus:ring-2 focus:ring-sage-500 focus:outline-none text-sm text-sage-800" />
+          </div>
+
+          <div id="role-select-box" class="hidden">
+            <label class="block text-xs font-medium text-sage-700 mb-1">Daftar Sebagai</label>
+            <select class="w-full px-3.5 py-2.5 border border-sage-300 rounded-xl focus:ring-2 focus:ring-sage-500 focus:outline-none text-sm text-sage-800 bg-white">
+              <option value="user">User / Siswa</option>
+              <option value="pemateri">Calon Pemateri / Dosen</option>
+            </select>
+          </div>
+
+          <p class="text-xs text-sage-500 pt-0.5">Sistem langsung mengarahkan ke Dashboard Sapa.</p>
+
+          <button type="submit" class="w-full min-h-[44px] py-2.5 bg-sage-600 hover:bg-sage-700 text-white font-medium rounded-xl shadow-xs focus:ring-2 focus:ring-sage-500 flex items-center justify-center gap-2 text-sm">
+            <span>Lanjutkan ke Dashboard</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- JavaScript Interaktif -->
+    <script>
+      function toggleA11yMenu() {
+        const menu = document.getElementById("a11y-menu");
+        menu.classList.toggle("hidden");
+      }
+
+      function setTextScale(scale) {
+        const body = document.getElementById("app-body");
+        body.classList.remove("text-scale-normal", "text-scale-large", "text-scale-xlarge");
+        if (scale === "large") body.classList.add("text-scale-large");
+        else if (scale === "xlarge") body.classList.add("text-scale-xlarge");
+        else body.classList.add("text-scale-normal");
+      }
+
+      function toggleDyslexicFont() {
+        document.body.classList.toggle("dyslexic-mode");
+      }
+
+      function toggleContrast() {
+        document.body.classList.toggle("high-contrast-mode");
+      }
+
+      function openAuthModal(type) {
+        const modal = document.getElementById("auth-modal");
+        const title = document.getElementById("modal-title");
+        const roleBox = document.getElementById("role-select-box");
+
+        if (type === "register") {
+          title.innerText = "Daftar Akun Sapa";
+          roleBox.classList.remove("hidden");
+        } else {
+          title.innerText = "Masuk ke Sapa";
+          roleBox.classList.add("hidden");
+        }
+
+        modal.classList.remove("hidden");
+      }
+
+      function closeAuthModal() {
+        document.getElementById("auth-modal").classList.add("hidden");
+      }
+
+      function handleDirectSubmit(e) {
+        e.preventDefault();
+        alert("Berhasil! Anda langsung dihubungkan ke Dashboard Sapa.");
+        closeAuthModal();
+      }
+    </script>
+  </body>
+</html>
